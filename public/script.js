@@ -213,22 +213,18 @@ function initializeUI() {
     updateLayerUI();
 }
 
-// ========== キャンバス初期化 ==========
+// initializeCanvas関数の一部（canvas取得後に呼ぶ）
 function initializeCanvas() {
-    // キャンバス要素取得
     canvasLayer1 = document.getElementById('canvas-layer1');
     canvasLayer2 = document.getElementById('canvas-layer2');
     canvasDrawing = document.getElementById('canvas-drawing');
     
-    // コンテキスト取得
     ctxLayer1 = canvasLayer1.getContext('2d');
     ctxLayer2 = canvasLayer2.getContext('2d');
     ctxDrawing = canvasDrawing.getContext('2d');
     
-    // キャンバスサイズ調整
-    resizeCanvas();
+    resizeCanvas();  // ここでキャンバスサイズを合わせる
     
-    // キャンバス設定
     setupCanvasContext(ctxLayer1);
     setupCanvasContext(ctxLayer2);
     setupCanvasContext(ctxDrawing);
@@ -243,14 +239,12 @@ function setupCanvasContext(ctx) {
     ctx.imageSmoothingEnabled = true;
 }
 
-// キャンバスサイズ調整
+// キャンバスサイズ調整（修正版）
 function resizeCanvas() {
     const wrapper = document.querySelector('.canvas-wrapper');
     const rect = wrapper.getBoundingClientRect();
-    
     const width = Math.floor(rect.width);
     const height = Math.floor(rect.height);
-    
     [canvasLayer1, canvasLayer2, canvasDrawing].forEach(canvas => {
         canvas.width = width;
         canvas.height = height;
@@ -258,6 +252,13 @@ function resizeCanvas() {
         canvas.style.height = height + 'px';
     });
 }
+
+// 初期化時とリサイズ時に呼ぶ
+window.addEventListener('load', () => {
+    resizeCanvas();
+    setTimeout(resizeCanvas, 100); // ちょっと遅らせて再度サイズ調整（モバイル対応など）
+});
+window.addEventListener('resize', resizeCanvas);
 
 // ========== イベントリスナー設定 ==========
 function setupEventListeners() {
