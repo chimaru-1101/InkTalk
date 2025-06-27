@@ -17,6 +17,23 @@ function resizeCanvas() {
     canvasDrawing.width = window.innerWidth;
     canvasDrawing.height = window.innerHeight;
 }
+// 再表示しなくても描けるようになる対策
+function resizeCanvas() {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  canvasLayer1.width = width;
+  canvasLayer1.height = height;
+  canvasLayer2.width = width;
+  canvasLayer2.height = height;
+  canvasDrawing.width = width;
+  canvasDrawing.height = height;
+}
+
+window.addEventListener('resize', resizeCanvas);
+window.addEventListener('load', () => {
+  setTimeout(resizeCanvas, 100); // モバイル対応
+});
 
 
 // 描画設定
