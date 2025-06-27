@@ -243,6 +243,14 @@ const savedPalette = document.getElementById('saved-palette');
 const customColorPicker = document.getElementById('custom-color-picker');
 const addToPaletteBtn = document.getElementById('add-to-palette');
 
+// ツールパネルの開閉処理
+const toggleBtn = document.getElementById('toggle-tool-panel');
+const toolPanel = document.getElementById('tool-panel');
+
+toggleBtn.addEventListener('click', () => {
+  toolPanel.classList.toggle('hidden');
+});
+
 // 現在の色ピッカーで選んだ色を適用
 customColorPicker.addEventListener('input', (e) => {
   currentColor = e.target.value;
