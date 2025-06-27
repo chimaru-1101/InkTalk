@@ -57,6 +57,19 @@
 
                         </div>
                     </div>
+                    <!-- ツールパネル（最初は非表示） -->
+　　　　　　　　　　　　<div id="tool-panel" class="tool-panel hidden">
+　　　　　　　　　　　　　　　  <!-- ツールボタンとか色パレットとかここに入れる -->
+　　　　　　　　　　　　　  <div class="color-palette">
+　　　　　　　　　　　　　    <div class="color-item" data-color="#000000" style="background: #000000;"></div>
+  　　　　　　　　　　　  <div class="color-item" data-color="#FF0000" style="background: #FF0000;"></div>
+　　　　　　　　    <!-- ...もっと色 -->
+ 　　　　　　　　　　　 </div>
+　　　　　　　　　  <input type="color" id="color-picker">
+　　　　　　　　</div>
+
+　　　　　　　　　　<!-- トグルボタン -->
+　　　　　　　　　　　<button id="toggle-tool-panel" class="toggle-button">🖌️</button>
 
                     <!-- 描画ツール -->
                     <div class="tool-group">
