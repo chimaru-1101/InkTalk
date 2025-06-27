@@ -104,11 +104,31 @@ function initializeSocket() {
         }
     });
 
-    socket.on('initialize-canvas', (data) => {
-        console.log('🎨 キャンバス初期化データ受信');
-        if (data.layer1) data.layer1.forEach(d => drawOnCanvas(d, false));
-        if (data.layer2) data.layer2.forEach(d => drawOnCanvas(d, false));
-    });
+    socket.on('authenticated', (data) => {
+    if (data.success) {
+        isAuthenticated = true;
+        currentUser = {
+            username: data.username,
+            isAdmin: data.isAdmin
+        };
+        
+        // 画面切り替え
+        loginScreen.classList.add('hidden');
+        mainScreen.classList.remove('hidden');
+        
+        // キャンバスサイズをここで調整
+        resizeCanvas();
+
+        // ユーザー情報表示
+        updateUserInfo();
+        
+        // 管理者コントロール表示
+        if (data.isAdmin) {
+            document.getElementById('admin-controls').classList.remove('hidden');
+ 　　       }
+  　　  }
+　　});
+　　setTimeout(resizeCanvas, 100);
 
     socket.on('draw-data', (data) => {
         drawOnCanvas(data, false);
