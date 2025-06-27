@@ -262,6 +262,22 @@ body {
     cursor: pointer;
 }
 
+/* 🌈 カスタムパレットの追加部分 */
+#saved-palette {
+    display: flex;
+    gap: 4px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+
+.saved-color {
+    width: 24px;
+    height: 24px;
+    border: 1px solid #888;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
 /* スライダー */
 input[type="range"] {
     width: 80px;
