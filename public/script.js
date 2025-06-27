@@ -216,6 +216,55 @@ function setupEventListeners() {
 
     setupDrawingEvents();
     setupToolEvents();
+    document.getElementById('upload-to-layer1').addEventListener('click', () => {
+    uploadImageToLayer('layer1');
+});
+document.getElementById('upload-to-layer2').addEventListener('click', () => {
+    uploadImageToLayer('layer2');
+});
+
+function uploadImageToLayer(targetLayer) {
+    const fileInput = document.getElementById('image-upload');
+    const file = fileInput.files[0];
+    if (!file) return alert('画像を選んでください');
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+            const ctx = targetLayer === 'layer1' ? ctxLayer1 : ctxLayer2;
+            ctx.drawImage(img, 0, 0, canvasLayer1.width, canvasLayer1.height);
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+const savedPalette = document.getElementById('saved-palette');
+const customColorPicker = document.getElementById('custom-color-picker');
+const addToPaletteBtn = document.getElementById('add-to-palette');
+
+// 現在の色ピッカーで選んだ色を適用
+customColorPicker.addEventListener('input', (e) => {
+  currentColor = e.target.value;
+  updateColorUI(); // 既存関数でUI更新
+});
+
+// パレットに追加
+addToPaletteBtn.addEventListener('click', () => {
+  const color = customColorPicker.value;
+  const colorDiv = document.createElement('div');
+  colorDiv.className = 'saved-color';
+  colorDiv.style.backgroundColor = color;
+  colorDiv.dataset.color = color;
+
+  colorDiv.addEventListener('click', () => {
+    currentColor = color;
+    updateColorUI();
+  });
+
+  savedPalette.appendChild(colorDiv);
+});
+
     setupChatEvents();
 
     window.addEventListener('resize', resizeCanvas);
