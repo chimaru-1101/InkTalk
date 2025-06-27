@@ -383,7 +383,12 @@ function setupChatEvents() {
     document.getElementById('close-chat').addEventListener('click', () => {
         document.getElementById('chat-panel').classList.add('hidden');
     });
-    
+
+    // 絵チャに戻る（チャット閉じるだけ）
+　　document.getElementById('back-to-draw').addEventListener('click', () => {
+   　　 document.getElementById('chat-panel').classList.add('hidden');
+　　});
+
     // メッセージ送信
     document.getElementById('send-chat').addEventListener('click', sendChatMessage);
     document.getElementById('chat-input').addEventListener('keypress', (e) => {
