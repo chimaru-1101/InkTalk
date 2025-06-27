@@ -365,6 +365,39 @@ input[type="range"] {
 .layer-control input[type="range"] {
     width: 100px;
 }
+/* パネルの基本スタイル */
+.tool-panel {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 200px;
+  background: #fff;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+  padding: 10px;
+  overflow-y: auto;
+  z-index: 10;
+  transition: transform 0.3s ease;
+}
+
+/* 非表示時に左に隠す */
+.tool-panel.hidden {
+  transform: translateX(-100%);
+}
+
+/* トグルボタン（画面左上） */
+.toggle-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 20;
+  padding: 6px 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  background: #fff;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
 
 /* ========== チャットパネル ========== */
 .chat-panel {
