@@ -1,0 +1,567 @@
+/* style.css - 絵チャット スタイルシート */
+
+/* ベース設定 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* 画面切り替え */
+.screen {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ========== ログイン画面 ========== */
+#login-screen {
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.login-container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    min-width: 350px;
+    backdrop-filter: blur(10px);
+}
+
+.login-container h1 {
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login-form input {
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.login-form input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+#join-btn {
+    padding: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+#join-btn:hover {
+    transform: translateY(-2px);
+}
+
+.login-info {
+    font-size: 12px;
+    color: #666;
+    margin-top: 10px;
+    line-height: 1.4;
+}
+
+/* ========== メイン画面 ========== */
+#main-screen {
+    flex-direction: column;
+    background: #f0f2f5;
+}
+
+/* ヘッダー */
+.header {
+    background: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-left h1 {
+    color: #333;
+    font-size: 1.5em;
+}
+
+.user-info {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-toggle {
+    padding: 8px 16px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.btn-toggle:hover {
+    background: #5a67d8;
+}
+
+.online-users {
+    background: #e2e8f0;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* メインコンテナ */
+.main-container {
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 60px);
+}
+
+/* ========== キャンバスエリア ========== */
+.canvas-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    position: relative;
+}
+
+/* ツールパネル */
+.tools-panel {
+    display: flex;
+    gap: 20px;
+    padding: 15px 20px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e2e8f0;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.tool-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
+
+.tool-group label {
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+}
+
+.layer-buttons, .tool-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.layer-btn, .tool-btn {
+    padding: 8px 12px;
+    border: 2px solid #ddd;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s;
+}
+
+.layer-btn.active, .tool-btn.active {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+.layer-btn:hover, .tool-btn:hover {
+    background: #f0f0f0;
+}
+
+.layer-btn.active:hover, .tool-btn.active:hover {
+    background: #5a67d8;
+}
+
+/* カラーパレット */
+.color-palette {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.color-item {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 2px solid #ddd;
+    transition: transform 0.2s;
+}
+
+.color-item.active {
+    border-color: #333;
+    transform: scale(1.1);
+}
+
+.color-item:hover {
+    transform: scale(1.05);
+}
+
+#color-picker {
+    width: 50px;
+    height: 30px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* スライダー */
+input[type="range"] {
+    width: 80px;
+    accent-color: #667eea;
+}
+
+/* 管理者コントロール */
+.admin-only {
+    border: 2px solid #ff6b6b;
+    border-radius: 8px;
+    padding: 10px;
+    background: #fff5f5;
+}
+
+.admin-btn {
+    padding: 6px 12px;
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    margin: 2px;
+    transition: background 0.2s;
+}
+
+.admin-btn:hover {
+    background: #ff5252;
+}
+
+/* キャンバス */
+.canvas-wrapper {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: white;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.canvas-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+#canvas-layer1 {
+    background: white;
+}
+
+#canvas-layer2 {
+    background: transparent;
+}
+
+#canvas-drawing {
+    background: transparent;
+    z-index: 100;
+    pointer-events: auto;
+}
+
+/* レイヤーコントロール */
+.layer-controls {
+    display: flex;
+    gap: 20px;
+    padding: 10px 20px;
+    background: #f8f9fa;
+    border-top: 1px solid #e2e8f0;
+}
+
+.layer-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.layer-control label {
+    font-size: 12px;
+    color: #333;
+    min-width: 80px;
+}
+
+.layer-control input[type="range"] {
+    width: 100px;
+}
+
+/* ========== チャットパネル ========== */
+.chat-panel {
+    width: 300px;
+    background: white;
+    border-left: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e2e8f0;
+    background: #f8f9fa;
+}
+
+.chat-header h3 {
+    color: #333;
+    font-size: 16px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #666;
+    padding: 5px;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    max-height: calc(100vh - 160px);
+}
+
+.chat-message {
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    background: #f0f2f5;
+    border-radius: 12px;
+    word-wrap: break-word;
+}
+
+.chat-message.admin {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+}
+
+.chat-message.system {
+    background: #d1ecf1;
+    border-left: 4px solid #17a2b8;
+    font-style: italic;
+}
+
+.chat-username {
+    font-weight: bold;
+    color: #667eea;
+    font-size: 12px;
+}
+
+.chat-username.admin {
+    color: #ff6b6b;
+}
+
+.chat-text {
+    margin-top: 4px;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.4;
+}
+
+.chat-time {
+    font-size: 10px;
+    color: #999;
+    margin-top: 4px;
+}
+
+.chat-input {
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid #e2e8f0;
+    background: #f8f9fa;
+}
+
+#chat-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+#chat-input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+#send-chat {
+    padding: 10px 16px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+#send-chat:hover {
+    background: #5a67d8;
+}
+
+/* ========== 接続状態 ========== */
+.connection-status {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 2000;
+    transition: all 0.3s;
+}
+
+.connection-status.connected {
+    background: #d4edda;
+    color: #155724;
+}
+
+.connection-status.disconnected {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.connection-status.connecting {
+    background: #fff3cd;
+    color: #856404;
+}
+
+/* ========== レスポンシブ対応 ========== */
+@media (max-width: 768px) {
+    .header {
+        padding: 8px 10px;
+        flex-wrap: wrap;
+    }
+    
+    .header-left h1 {
+        font-size: 1.2em;
+    }
+    
+    .tools-panel {
+        padding: 10px;
+        gap: 10px;
+    }
+    
+    .tool-group {
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    .canvas-wrapper {
+        margin: 5px;
+    }
+    
+    .chat-panel {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1500;
+    }
+    
+    .main-container {
+        flex-direction: column;
+    }
+    
+    .layer-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .login-container {
+        margin: 20px;
+        padding: 30px;
+        min-width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .tools-panel {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .tool-group {
+        justify-content: space-between;
+        width: 100%;
+    }
+    
+    .color-palette {
+        grid-template-columns: repeat(8, 1fr);
+        justify-items: center;
+    }

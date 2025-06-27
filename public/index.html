@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>絵チャ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ログイン画面 -->
+    <div id="login-screen" class="screen">
+        <div class="login-container">
+            <h1>📝絵チャ</h1>
+            <div class="login-form">
+                <input type="text" id="username-input" placeholder="お名前を入力してください" maxlength="20">
+                <input type="password" id="admin-password" placeholder="管理者パスワード（任意）">
+                <button id="join-btn">参加する</button>
+                <p class="login-info">
+                    ℹ️ 管理者パスワードを入力すると管理者権限で参加できます<br>
+                    一般ユーザーとして参加する場合は、お名前のみ入力してください
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- メイン画面 -->
+    <div id="main-screen" class="screen hidden">
+        <!-- ヘッダー -->
+        <header class="header">
+            <div class="header-left">
+                <h1>📝絵チャ</h1>
+                <span id="user-info" class="user-info"></span>
+            </div>
+            <div class="header-right">
+                <button id="toggle-chat" class="btn-toggle">💬 チャット</button>
+                <div id="online-users" class="online-users">
+                    <span>👥 オンライン: <span id="user-count">0</span></span>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-container">
+            <!-- 描画エリア -->
+            <div class="canvas-container">
+                <!-- 描画ツール -->
+                <div class="tools-panel">
+                    <!-- レイヤー選択 -->
+                    <div class="tool-group">
+                        <label>レイヤー</label>
+                        <div class="layer-buttons">
+                            <button id="layer1-btn" class="layer-btn active" data-layer="layer1">L1</button>
+                            <button id="layer2-btn" class="layer-btn" data-layer="layer2">L2</button>
+                        </div>
+                    </div>
+
+                    <!-- 描画ツール -->
+                    <div class="tool-group">
+                        <label>ツール</label>
+                        <div class="tool-buttons">
+                            <button id="pen-tool" class="tool-btn active" data-tool="pen">🖊️</button>
+                            <button id="eraser-tool" class="tool-btn" data-tool="eraser">🧹</button>
+                        </div>
+                    </div>
+
+                    <!-- 色選択 -->
+                    <div class="tool-group">
+                        <label>色</label>
+                        <div class="color-palette">
+                            <div class="color-item active" data-color="#000000" style="background-color: #000000;"></div>
+                            <div class="color-item" data-color="#FF0000" style="background-color: #FF0000;"></div>
+                            <div class="color-item" data-color="#00FF00" style="background-color: #00FF00;"></div>
+                            <div class="color-item" data-color="#0000FF" style="background-color: #0000FF;"></div>
+                            <div class="color-item" data-color="#FFFF00" style="background-color: #FFFF00;"></div>
+                            <div class="color-item" data-color="#FF00FF" style="background-color: #FF00FF;"></div>
+                            <div class="color-item" data-color="#00FFFF" style="background-color: #00FFFF;"></div>
+                            <div class="color-item" data-color="#FFFFFF" style="background-color: #FFFFFF;"></div>
+                        </div>
+                        <input type="color" id="color-picker" value="#000000">
+                    </div>
+
+                    <!-- 線の太さ -->
+                    <div class="tool-group">
+                        <label>太さ: <span id="brush-size-value">5</span>px</label>
+                        <input type="range" id="brush-size" min="1" max="50" value="5">
+                    </div>
+
+                    <!-- 透明度 -->
+                    <div class="tool-group">
+                        <label>透明度: <span id="opacity-value">100</span>%</label>
+                        <input type="range" id="opacity" min="10" max="100" value="100">
+                    </div>
+
+                    <!-- 管理者専用ボタン -->
+                    <div id="admin-controls" class="tool-group admin-only hidden">
+                        <label>管理者</label>
+                        <button id="clear-current-layer" class="admin-btn">現在のレイヤーをクリア</button>
+                        <button id="clear-all-layers" class="admin-btn">全レイヤーをクリア</button>
+                    </div>
+                </div>
+
+                <!-- キャンバス -->
+                <div class="canvas-wrapper">
+                    <canvas id="canvas-layer1" class="canvas-layer" width="800" height="600"></canvas>
+                    <canvas id="canvas-layer2" class="canvas-layer" width="800" height="600"></canvas>
+                    <canvas id="canvas-drawing" class="canvas-layer" width="800" height="600"></canvas>
+                </div>
+
+                <!-- レイヤー透明度調整 -->
+                <div class="layer-controls">
+                    <div class="layer-control">
+                        <label>L1透明度: <span id="layer1-opacity-value">100</span>%</label>
+                        <input type="range" id="layer1-opacity" min="0" max="100" value="100">
+                    </div>
+                    <div class="layer-control">
+                        <label>L2透明度: <span id="layer2-opacity-value">100</span>%</label>
+                        <input type="range" id="layer2-opacity" min="0" max="100" value="100">
+                    </div>
+                </div>
+            </div>
+
+            <!-- チャットエリア -->
+            <div id="chat-panel" class="chat-panel hidden">
+                <div class="chat-header">
+                    <h3>💬 チャット</h3>
+                    <button id="close-chat" class="close-btn">✕</button>
+                </div>
+                <div id="chat-messages" class="chat-messages"></div>
+                <div class="chat-input">
+                    <input type="text" id="chat-input" placeholder="メッセージを入力..." maxlength="200">
+                    <button id="send-chat">送信</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 接続状態表示 -->
+    <div id="connection-status" class="connection-status">
+        <span id="status-text">接続中...</span>
+    </div>
+
+    <!-- Socket.IO クライアント -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
